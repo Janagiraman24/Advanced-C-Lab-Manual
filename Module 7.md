@@ -16,12 +16,35 @@ Else
  
 Program:
 
-//type your code here
+```
+#include <stdio.h>
 
+struct person {
+    int age;
+    char name[10];
+};
+
+int main() {
+    struct person p;
+    scanf("%d %s", &p.age, p.name);
+    printf("Age:%d\n", p.age);
+    printf("Name:%s", p.name);
+    printf("vaccine:%d\n", p.age); 
+    printf("eligibility:");
+
+    if (p.age > 18) {
+        printf("yes");
+    } else {
+        printf("no");
+    }
+
+    return 0;
+}
+```
 
 Output:
 
-//paste your output here
+<img width="1161" height="318" alt="image" src="https://github.com/user-attachments/assets/40c253cf-6831-4ad5-8c21-79afd144f2c6" />
 
 
 Result:
@@ -44,15 +67,44 @@ Algorithm:
  
 Program:
 
-//type your code here
+```
+#include <stdio.h>
+struct Input
+{
+    int x;
+    int y;
+};
 
+struct Output
+{
+    int sum;
+};
+
+struct Output add(struct Input in) 
+{
+    struct Output out;
+    out.sum = in.x + in.y;
+    return out;
+}
+
+int main() {
+    struct Input values;
+    struct Output result;
+    scanf("%d", &values.x);
+    scanf("%d", &values.y);
+    result = add(values);
+    printf("%d\n", result.sum);
+
+    return 0;
+}
+```
 
 
 
 Output:
 
 
-//paste your output here
+<img width="884" height="316" alt="image" src="https://github.com/user-attachments/assets/4ac0aa2d-c5d2-4538-b537-f47487a7aa62" />
 
 
 
@@ -85,25 +137,33 @@ Use scanf to input the file name into the name array.
 5.	Return 0 to indicate successful program execution.
  
 Program:
-
-//type your code here
-
+```
+#include <stdio.h>
+int main()
+{
+    FILE *fp;
+    char name[20];
+    scanf("%s",name);
+    fp=fopen(name,"w");
+    if(fp==NULL)
+    {
+        printf("error checking");
+    }
+    else
+    {
+        printf("%s File Created Successfully\n%s File Opened\n",name,name);
+    }
+    fclose(fp);
+    printf("%s File Closed\n",name);
+}
+```
 
 
 
 Output:
 
 
-//paste your output here
-
-
-
-
-
-
-
-
-
+<img width="1044" height="384" alt="image" src="https://github.com/user-attachments/assets/438de3c5-22b3-40ba-bb57-585a4466246d" />
 
 
 Result:
@@ -112,6 +172,7 @@ Thus, the program is verified successfully
 
 
 EXP NO:4   PROGRAM TO READ A FILE NAME FROM USER, WRITE THAT FILE AND INSERT TEXT IN TO THAT FILE
+
 Aim:
 To write a C program to read, a file and insert text in that file
 Algorithm:
@@ -133,18 +194,44 @@ Use scanf to input the file name into the name array and the number of strings i
  
 Program:
 
-//type your code here
+```
+#include <stdio.h>
 
+int main() {
+    char filename[100];
+    char line[100];
+    int n, i;
+    FILE *file;
+    scanf("%s", filename);
+    file = fopen(filename, "w");
+
+    if (file == NULL) 
+    {
+        printf("Error: Could not create %s\n", filename);
+        return 1;
+    }
+    scanf("%d", &n);
+    getchar();
+    for (i = 0; i < n; i++) {
+        fgets(line, sizeof(line), stdin); 
+        fputs(line, file);                
+    }
+
+  
+    fclose(file);
+    printf("%s Opened\n", filename);
+    printf("Data added Successfully\n");
+
+    return 0;
+}
+```
 
 
 
 Output:
 
 
-//paste your output here
-
-
-
+<img width="845" height="373" alt="image" src="https://github.com/user-attachments/assets/0e7affcb-7995-412d-96fd-9d9d0102889a" />
 
 
 
@@ -156,7 +243,8 @@ Thus, the program is verified successfully
 Ex No 5 : C PROGRAM TO DISPLAY STUDENT DETAILS USING STRUCTURE
 
 Aim:
-The aim of this program is to dynamically allocate memory to store information about multiple subjects (name and marks), input the details for each subject, and then display the stored information. Finally, it frees the allocated memory to prevent memory leaks.
+The aim of this program is to dynamically allocate memory to store information about multiple subjects (name and marks), input the details for each subject, 
+and then display the stored information. Finally, it frees the allocated memory to prevent memory leaks.
 
 Algorithm:
 1.Input the number of subjects.
@@ -187,20 +275,68 @@ Algorithm:
 
 Program:
 
-//type your code here
+```
+#include <stdio.h>
 
+#define TOTAL_WORKING_DAYS 84
+#define MAX_DAYS_PER_MONTH 21
+
+struct Student {
+    int regNo;
+    char name[50];
+    int june;
+    int july;
+    int august;
+    int september;
+    int totalPresent;
+    float attendancePercentage;
+    char eligibility[4]; 
+};
+
+int main() {
+    struct Student s;
+    scanf("%d", &s.regNo);
+    scanf("%s", s.name);
+    scanf("%d", &s.june);
+    scanf("%d", &s.july);
+    scanf("%d", &s.august);
+    scanf("%d", &s.september);
+    
+    if (s.june > MAX_DAYS_PER_MONTH || s.july > MAX_DAYS_PER_MONTH ||
+        s.august > MAX_DAYS_PER_MONTH || s.september > MAX_DAYS_PER_MONTH) 
+        {
+        printf("Error: Days present in any month should not exceed 21.\n");
+        return 1;
+    }
+
+    s.totalPresent = s.june + s.july + s.august + s.september;
+    
+    s.attendancePercentage = (s.totalPresent / (float)TOTAL_WORKING_DAYS) * 100;
+    
+    if (s.attendancePercentage > 75.0)
+        sprintf(s.eligibility, "yes");
+    else
+        sprintf(s.eligibility, "no");
+        
+    printf("Reg.no:%d\n", s.regNo);
+    printf("Name:%s\n", s.name);
+    printf("Total.No.of.present days:%d\n", s.totalPresent);
+    printf("Attendence:%.2f\n", s.attendancePercentage);
+    printf("eligibility:%s\n", s.eligibility);
+
+    return 0;
+}
+
+```
 
 
 
 Output:
 
 
-//paste your output here
-
-
-
-
+<img width="848" height="432" alt="image" src="https://github.com/user-attachments/assets/0175a816-1a2a-4807-aac0-f5d4e31e293e" />
 
 
 Result:
+
 Thus, the program is verified successfully
