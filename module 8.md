@@ -15,21 +15,48 @@ Algorithm:
 4.	Exit the program.
  
 Program:
-
-//type your code here
-
-
-
-
+```c
+int main(){
+    int n;
+    scanf("%d",&n);
+    if(n>=21&&n<=29){
+        switch(n){
+            case 21:
+            printf("twenty one\n");
+            break;
+            case 22:
+            printf("twenty two\n");
+            break;
+            case 23:
+            printf("twenty three\n");
+            break;
+            case 24:
+            printf("twenty four\n");
+            break;
+            case 25:
+            printf("twenty five\n");
+            break;
+            case 26:
+            printf("twenty six\n");
+            break;
+            case 27:
+            printf("twenty three\n");
+            break;
+            case 28:
+            printf("twenty four\n");
+            break;
+            case 29:
+            printf("twenty five\n");
+            break;
+        }
+    }
+    else {
+        printf("Greater than 29");
+    }
+}
+```
 Output:
-
-
-//paste your output here
-
-
-
-
-
+<img width="670" height="267" alt="Screenshot 2025-10-23 111349" src="https://github.com/user-attachments/assets/8caf5b83-1b66-4f19-88ea-e45cc790fc79" />
 
 Result:
 Thus, the program is verified successfully
@@ -46,21 +73,34 @@ Algorithm:
 6.	End
  
 Program:
+```c
+#include <stdio.h>
+#include <ctype.h>
 
-//type your code here
+int main() {
+    char str[100];
+    
+    scanf("%s", str);
+    
+    int frequency[10] = {0};
 
-
-
-
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (isdigit(str[i])) {
+            int digit = str[i] - '0';
+            frequency[digit]++;
+        }
+    }
+    
+    for (int i = 0; i < 10; i++) {
+        printf("%d ", frequency[i]);
+    }
+    printf("\n");
+    
+    return 0;
+}
+```
 Output:
-
-
-//paste your output here
-
-
-
-
-
+<img width="709" height="223" alt="Screenshot 2025-10-23 111612" src="https://github.com/user-attachments/assets/e89e3a5a-c227-4639-90d2-a82bb7031f2c" />
 
 Result:
 Thus, the program is verified successfully
@@ -83,21 +123,61 @@ Free the memory allocated for each string in s Free the memory allocated for s
 7.	End
  
 Program:
+```c
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
-//type your code here
+void swap(char **a, char **b) {
+    char *temp = *a;
+    *a = *b;
+    *b = temp;
+}
 
+int next_permutation(char *arr[], int n) {
+    int i = n - 2;
+    while (i >= 0 && strcmp(arr[i], arr[i + 1]) >= 0)
+        i--;
+    if (i < 0)
+        return 0;
+    int j = n - 1;
+    while (strcmp(arr[i], arr[j]) >= 0)
+        j--;
+    swap(&arr[i], &arr[j]);
+    for (int l = i + 1, r = n - 1; l < r; l++, r--)
+        swap(&arr[l], &arr[r]);
+    return 1;
+}
 
+int compare(const void *a, const void *b) {
+    return strcmp(*(const char **)a, *(const char **)b);
+}
 
-
+int main() {
+    int n;
+    scanf("%d", &n);
+    char **arr = (char **)malloc(n * sizeof(char *));
+    for (int i = 0; i < n; i++) {
+        arr[i] = (char *)malloc(101 * sizeof(char)); // Assuming max length 100
+        scanf("%s", arr[i]);
+    }
+    
+    qsort(arr, n, sizeof(char *), compare);
+    
+    do {
+        for (int i = 0; i < n; i++)
+            printf("%s%c", arr[i], i == n - 1 ? '\n' : ' ');
+    } while (next_permutation(arr, n));
+    
+    for (int i = 0; i < n; i++)
+        free(arr[i]);
+    free(arr);
+    
+    return 0;
+}
+```
 Output:
-
-
-//paste your output here
-
-
-
-
-
+<img width="615" height="375" alt="Screenshot 2025-10-23 111721" src="https://github.com/user-attachments/assets/a305e7fe-4523-45f6-880f-9cf20afa96a9" />
 
 Result:
 Thus, the program is verified successfully
@@ -116,60 +196,65 @@ Algorithm:
 7.	End
  
 Program:
-
-//type your code here
-
-
-
-
+```c
+#include<stdio.h>
+int main(){
+    int n;
+    scanf("%d",&n);
+    int size=2*n-1;
+    for(int i=0;i<size;i++){
+        for(int j=0;j<size;j++){
+            int value=n-(i<j?(i<size-j-1?i:size-j-1):(j<size-i-1?j:size-i-1));
+            printf("%d ",value);
+        }
+        printf("\n");
+    }
+}
+```
 Output:
-
-
-//paste your output here
-
-
-
-
+<img width="996" height="596" alt="Screenshot 2025-10-23 111855" src="https://github.com/user-attachments/assets/62e2dc79-f1c0-45f9-8bfa-948f58a49f49" />
 
 
 Result:
 Thus, the program is verified successfully
 
-EXP NO:10 C PROGRAM TO FIND A SQUARE  OF NUMBER USING FUNCTION WITHOUT ARGUMENTS WITH RETURN TYPE
+EXP NO:10 Given a five digit integer n, print the sum of its digits.
 
 Aim:
 
-To write a C program that calculates the square of a number using a function that does not take any arguments, but returns the square of the number.
+To Write Given a five digit integer n, print the sum of its digits.
 
 Algorithm:
 
-1.	Start.
-2.	Define a function square() with no parameters. This function will return an integer value.
-3.	Inside the function:
-o	Declare an integer variable to store the number.
-o	Ask the user to input a number.
-o	Calculate the square of the number (multiply the number by itself).
-o	Return the squared value.
-4.	In the main function:
-o	Call the square() function and display the result.
-5.	End.
+1.Input n. 
+
+2.Initialize sum = 0. 
+
+3.Repeat 5 times: digit = n % 10 sum = sum + digit n = n / 10 (integer division) 
+
+4.Print sum.
 
 Program:
+```c
+#include <stdio.h>
 
-//type your code here
-
-
-
-
+int main() {
+    int n;
+    scanf("%d", &n);
+    int d1, d2, d3, d4, d5, sum;
+    d1 = n / 10000;          
+    d2 = (n / 1000) % 10;   
+    d3 = (n / 100) % 10;   
+    d4 = (n / 10) % 10;    
+    d5 = n % 10;            
+    sum = d1 + d2 + d3 + d4 + d5;
+    printf("%d\n", sum);
+    return 0;
+}
+```
 Output:
 
-
-//paste your output here
-
-
-
-
-
+<img width="433" height="193" alt="image" src="https://github.com/user-attachments/assets/ee86fd75-415a-4b4c-8bab-76b8e543ed1b" />
 
 Result:
 Thus, the program is verified successfully
